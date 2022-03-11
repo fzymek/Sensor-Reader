@@ -8,6 +8,8 @@
 import Foundation
 import CoreBluetooth
 import SwiftUI
+import CocoaLumberjack
+import CocoaLumberjackSwift
 
 class BluetoothLEService: NSObject, ObservableObject {
     
@@ -38,21 +40,21 @@ extension BluetoothLEService: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        print("\(peripheral), \(peripheral.services)")
+        DDLogInfo("\(peripheral), \(peripheral.services ?? [])")
     }
 }
 
 extension BluetoothLEService: CBPeripheralDelegate {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        print("Connected to \(peripheral)")
+        DDLogInfo("Connected to \(peripheral)")
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        print("Finished service discovery with error \(error?.localizedDescription ?? "")")
+        DDLogInfo("Finished service discovery with error \(error?.localizedDescription ?? "")")
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverIncludedServicesFor service: CBService, error: Error?) {
-        print("discovered service: \(service)")
+        DDLogInfo("discovered service: \(service)")
         
     }
     
