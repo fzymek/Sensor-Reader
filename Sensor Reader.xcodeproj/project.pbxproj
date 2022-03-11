@@ -20,7 +20,7 @@
 		46474E3727D8E6D500AC1693 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		46474E3927D8E6DB00AC1693 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		46474E3C27D8E6DB00AC1693 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		46474E4327D8E7CC00AC1693 /* Sensor-Reader-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Sensor-Reader-Info.plist"; sourceTree = SOURCE_ROOT; };
+		46474E4327D8E7CC00AC1693 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
 		46474E4427D8E8E300AC1693 /* BluetoothLEService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothLEService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -54,11 +54,10 @@
 		46474E3427D8E6D500AC1693 /* Sensor Reader */ = {
 			isa = PBXGroup;
 			children = (
-				46474E4327D8E7CC00AC1693 /* Sensor-Reader-Info.plist */,
+				46474E4827DB8E8E00AC1693 /* Resources */,
+				46474E4327D8E7CC00AC1693 /* Info.plist */,
 				46474E3527D8E6D500AC1693 /* Sensor_ReaderApp.swift */,
 				46474E3727D8E6D500AC1693 /* ContentView.swift */,
-				46474E3927D8E6DB00AC1693 /* Assets.xcassets */,
-				46474E3B27D8E6DB00AC1693 /* Preview Content */,
 				46474E4427D8E8E300AC1693 /* BluetoothLEService.swift */,
 			);
 			path = "Sensor Reader";
@@ -70,6 +69,15 @@
 				46474E3C27D8E6DB00AC1693 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		46474E4827DB8E8E00AC1693 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				46474E3927D8E6DB00AC1693 /* Assets.xcassets */,
+				46474E3B27D8E6DB00AC1693 /* Preview Content */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,11 +282,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Sensor Reader/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Sensor Reader/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XU7BT8H567;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Sensor-Reader-Info.plist";
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -305,11 +313,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Sensor Reader/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Sensor Reader/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = XU7BT8H567;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Sensor-Reader-Info.plist";
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
