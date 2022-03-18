@@ -35,16 +35,25 @@ class ViewModel: ObservableObject {
         .receive(on: RunLoop.main)
         .assign(to: \ViewModel.stateDescription, on: self)
         .store(in: &cancellables)
+        
+        
+        service.$iNodeAdvertismentDataFrame.filter {
+            $0 != nil
+        }
+        .receive(on: RunLoop.main)
+        .assign(to: \ViewModel.dataFrame, on: self)
+        .store(in: &cancellables)
 
     }
     
+    @Published var dataFrame: Data?
     @Published var stateDescription: String = ""
     
 }
 
 struct ContentView: View {
     
-    @ObservedObject private var viewModel: ViewModel
+    @ObservedObject var viewModel: ViewModel
     
     init(_ service: BluetoothLEService) {
         viewModel = ViewModel(service)
@@ -52,15 +61,45 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Text("Hello, world!")
-                .font(.title)
-                .foregroundColor(Color.red)
-                .padding()
-        
-            Text("BT service state \(viewModel.stateDescription)")
-                    .padding()
+            if let data = viewModel.dataFrame {
+                let decoder = iNodeCareSensorHTDataDecoder(data: data)
+                let temp = decoder.temperature?.decimalString
+                let hum = decoder.humidity?.decimalString
+                let battery = decoder.batteryLevel?.decimalString
+                let voltage = decoder.batteryVoltage?.decimalString
+                
+                Text("Ostatni odczyt z czujnika")
+                    .font(.title)
+                
+                ScrollView {
+                    Spacer()
+                    
+                    VStack(spacing: 24) {
+                        DataRow(title: "Temperatura:", value: temp, unit: " \u{2103}")
+                            .modifier(CardWithShadow())
+                        DataRow(title: "Wilgotność:", value: hum, unit: " %")
+                            .modifier(CardWithShadow())
+                        DataRow(title: "Poziom baterii:", value: battery, unit: " %")
+                            .modifier(CardWithShadow())
+                        DataRow(title: "Napięcie baterii:", value: voltage, unit: " V")
+                            .modifier(CardWithShadow())
+                    }
+                    .padding(4)
+                    
+                    Spacer()
+                    
+                }.padding(.top, 8)
+                
+            } else {
+                HStack {
+                    Spacer()
+                    ProgressView("Szukam czujnika...")
+                    Spacer()
+                }
+            }
         }
-    }
+        .padding([.leading, .trailing], 16)
+    }    
 }
 
 struct ContentView_Previews: PreviewProvider {

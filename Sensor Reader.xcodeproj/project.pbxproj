@@ -12,6 +12,11 @@
 		46474E3A27D8E6DB00AC1693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46474E3927D8E6DB00AC1693 /* Assets.xcassets */; };
 		46474E3D27D8E6DB00AC1693 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46474E3C27D8E6DB00AC1693 /* Preview Assets.xcassets */; };
 		46474E4527D8E8E300AC1693 /* BluetoothLEService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46474E4427D8E8E300AC1693 /* BluetoothLEService.swift */; };
+		466936BA27E49ED30074368A /* iNodeCareSensorHTDataDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466936B927E49ED20074368A /* iNodeCareSensorHTDataDecoder.swift */; };
+		466936BC27E4A1D90074368A /* CBPeripheral+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466936BB27E4A1D90074368A /* CBPeripheral+Extensions.swift */; };
+		466936BE27E4A4FD0074368A /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466936BD27E4A4FD0074368A /* Double+Extensions.swift */; };
+		466936C027E4A84B0074368A /* DataRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466936BF27E4A84B0074368A /* DataRowView.swift */; };
+		466936C227E4A9E00074368A /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466936C127E4A9E00074368A /* ViewModifiers.swift */; };
 		46F3757527DBDBDA0075215B /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = 46F3757427DBDBDA0075215B /* CocoaLumberjack */; };
 		46F3757727DBDBDA0075215B /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 46F3757627DBDBDA0075215B /* CocoaLumberjackSwift */; };
 /* End PBXBuildFile section */
@@ -24,6 +29,11 @@
 		46474E3C27D8E6DB00AC1693 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		46474E4327D8E7CC00AC1693 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
 		46474E4427D8E8E300AC1693 /* BluetoothLEService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothLEService.swift; sourceTree = "<group>"; };
+		466936B927E49ED20074368A /* iNodeCareSensorHTDataDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iNodeCareSensorHTDataDecoder.swift; sourceTree = "<group>"; };
+		466936BB27E4A1D90074368A /* CBPeripheral+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CBPeripheral+Extensions.swift"; sourceTree = "<group>"; };
+		466936BD27E4A4FD0074368A /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
+		466936BF27E4A84B0074368A /* DataRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRowView.swift; sourceTree = "<group>"; };
+		466936C127E4A9E00074368A /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +73,10 @@
 				46474E3527D8E6D500AC1693 /* Sensor_ReaderApp.swift */,
 				46474E3727D8E6D500AC1693 /* ContentView.swift */,
 				46474E4427D8E8E300AC1693 /* BluetoothLEService.swift */,
+				466936B927E49ED20074368A /* iNodeCareSensorHTDataDecoder.swift */,
+				466936BB27E4A1D90074368A /* CBPeripheral+Extensions.swift */,
+				466936BF27E4A84B0074368A /* DataRowView.swift */,
+				466936C127E4A9E00074368A /* ViewModifiers.swift */,
 			);
 			path = "Sensor Reader";
 			sourceTree = "<group>";
@@ -80,6 +94,7 @@
 			children = (
 				46474E3927D8E6DB00AC1693 /* Assets.xcassets */,
 				46474E3B27D8E6DB00AC1693 /* Preview Content */,
+				466936BD27E4A4FD0074368A /* Double+Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -161,9 +176,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				466936BE27E4A4FD0074368A /* Double+Extensions.swift in Sources */,
 				46474E3827D8E6D500AC1693 /* ContentView.swift in Sources */,
+				466936BA27E49ED30074368A /* iNodeCareSensorHTDataDecoder.swift in Sources */,
+				466936C227E4A9E00074368A /* ViewModifiers.swift in Sources */,
 				46474E4527D8E8E300AC1693 /* BluetoothLEService.swift in Sources */,
 				46474E3627D8E6D500AC1693 /* Sensor_ReaderApp.swift in Sources */,
+				466936BC27E4A1D90074368A /* CBPeripheral+Extensions.swift in Sources */,
+				466936C027E4A84B0074368A /* DataRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

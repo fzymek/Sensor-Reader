@@ -15,22 +15,19 @@ class BluetoothLEService: NSObject, ObservableObject {
     let advertismentManufacturerDataKey = "kCBAdvDataManufacturerData"
     
     @Published var state: CBManagerState?
+    @Published var iNodeAdvertismentDataFrame: Data?
+    @Published var iNodeRSSI: NSNumber = 0
     
     private var centralManager: CBCentralManager?
-    private var discoveredDevices: Set<CBPeripheral> = Set()
-    private var sensor: CBPeripheral!
     
+    
+    /*
+    private var sensor: CBPeripheral!
     private var numberOfServices = 0
     private var numberOfCharacteristics = 0
     private var serviceCharacteristicsMap: [CBService: [CBCharacteristic]] = [:]
     private var characteristicDescriptorMap: [CBCharacteristic: [CBDescriptor]] = [:]
-    
-    private let queue: OperationQueue = {
-        let q = OperationQueue()
-        q.name = "scanning-queue"
-        q.maxConcurrentOperationCount = 1
-        return q
-    }()
+     */
     
     override init() {
         super.init()
@@ -57,62 +54,21 @@ extension BluetoothLEService: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         DDLogInfo("Found \(peripheral.displayName), \(RSSI) dB")
-        discoveredDevices.insert(peripheral)
         if let name = peripheral.name, name == "iNode-4412D2" {
-            DDLogInfo("Stopping scan. Connecting to \(peripheral.displayName)...")
             DDLogInfo("Ad data for \(peripheral.displayName) = \(advertisementData)")
-            
-            decodeManufacturerData(advertisementData[advertismentManufacturerDataKey] as? Data)
-            
-            centralManager?.stopScan()
-            centralManager?.connect(peripheral, options: nil)
+            self.iNodeAdvertismentDataFrame = advertisementData[advertismentManufacturerDataKey] as? Data
+            self.iNodeRSSI = RSSI
         }
     }
     
     private func decodeManufacturerData(_ data: Data?) {
-        guard let data = data, data.count > 0 else {
-            DDLogInfo("No advertisment data to decode. ")
-            return
-        }
-        // https://docs.google.com/document/d/1hcBpZ1RSgHRL6wu4SlTq2bvtKSL5_sFjXMu_HRyWZiQ/edit#heading=h.etvbnk7prj7v
-        let groupsAndBatteryData = data.subdata(in: 2..<4)
-        let temperatureData = data.subdata(in: 8..<10)
-        let humidityData = data.subdata(in: 10..<12)
-//        let rawTime1Data = data.subdata(with: NSRange(13...14))
-//        let rawTime2Data = data.subdata(with: NSRange(15...16))
-        
-        
-        // Battery data
-        let groupAndBatteryInt = groupsAndBatteryData.withUnsafeBytes { $0.load(as: UInt16.self) }
-        let battery = (groupAndBatteryInt >> 12 ) & 0x0F
-        let batteryLevel: Float
-        if battery == 1 {
-            batteryLevel = 100
-        } else {
-            batteryLevel = 10 * (Float(min(battery, 11)) - 1)
-        }
-        let batteryVoltage = (batteryLevel - 10) * 1.2 / 100 + 1.8
-        
-        DDLogInfo("Battery level \(batteryLevel)%, voltage: \(batteryVoltage) V")
-        
-        
-        // temperature data
-        let temperatureInt = temperatureData.withUnsafeBytes { $0.load(as: UInt16.self) }
-        var temperature = (175.72 * Double(temperatureInt) * 4 / 65536) - 46.85
-        if temperature < -30 { temperature = -30 }
-        if temperature > 70 { temperature = 70 }
-        DDLogInfo(String(format: "Temperature: %.2f C", temperature))
-        
-        //humidity
-        let rawHumidity = humidityData.withUnsafeBytes { $0.load(as: UInt16.self) }
-        var humidity = (125 * Double(rawHumidity) * 4 / 65536) - 6
-        if humidity < 1 { humidity = 1 }
-        if humidity > 100 { humidity = 100 }
-        DDLogInfo(String(format: "Humidity: %.2f %%", humidity))
-        
     }
 }
 
+// Following code is not needed at the moment
+// Basic data can be decoded from advertisment frame
+// This code is a ground work for later use when I can connect to peripheral and talk directly to it instead of just using broadcast data
+/*
 extension BluetoothLEService: CBPeripheralDelegate {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         DDLogInfo("Connected to \(peripheral.displayName)")
@@ -233,12 +189,6 @@ extension BluetoothLEService: CBPeripheralDelegate {
 
 
 
-extension CBPeripheral {
-    var displayName: String {
-        return name ?? identifier.uuidString
-    }
-}
 
-
-
-//<90 9b 01b0 0000 0000 cf19 2c13 0400 5231 c275071e d42c7afa>
+ 
+*/
