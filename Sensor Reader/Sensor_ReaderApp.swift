@@ -19,7 +19,7 @@ struct Sensor_ReaderApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(btService)
+            ContentView(ViewModel(btService))
         }
     }
     

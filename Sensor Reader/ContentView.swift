@@ -13,7 +13,7 @@ class ViewModel: ObservableObject {
     
     private var cancellables: Set<AnyCancellable> = Set()
     
-    init(_ service: BluetoothLEService) {
+    init(_ service: BluetoothLEService = BluetoothLEService()) {
         service.$state.map {
             switch $0 {
             case .poweredOn:
@@ -55,8 +55,8 @@ struct ContentView: View {
     
     @ObservedObject var viewModel: ViewModel
     
-    init(_ service: BluetoothLEService) {
-        viewModel = ViewModel(service)
+    init(_ service: ViewModel = ViewModel()) {
+        viewModel = service
     }
     
     var body: some View {
@@ -103,7 +103,41 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
+    
+    static let bleService: BluetoothLEService = {
+        let s = BluetoothLEService()
+        s.state = .poweredOn
+        let bytes: [UInt8] = [
+            //909b01b0 00000000 cf192c13 04005231 c275071e d42c7afa
+            0x90, 0x9b, 0x01, 0xb0,
+            0x00, 0x00, 0x00, 0x00,
+            0xcf, 0x19, 0x2c, 0x13,
+            0x04, 0x00, 0x52, 0x31,
+            0xc2, 0x75, 0x07, 0x1e,
+            0xd4, 0x2c, 0x7a, 0xfa
+        ]
+
+        s.iNodeAdvertismentDataFrame = Data(bytes)
+        return s
+    }()
+    
+    static let emptyVm: ViewModel = {
+        let vm = ViewModel(BluetoothLEService())
+        return vm
+    }()
+    
+    static let vmWithData: ViewModel = {
+        let vm = ViewModel(bleService)
+        return vm
+    }()
+    
     static var previews: some View {
-        ContentView(BluetoothLEService())
+        Group {
+            ContentView(emptyVm)
+//                .previewDevice(PreviewDevice(stringLiteral: "iPhone 12"))
+            ContentView(vmWithData)
+//                .previewDevice(PreviewDevice(stringLiteral: "Mac Catalyst"))
+            
+        }
     }
 }
